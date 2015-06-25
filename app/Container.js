@@ -1,6 +1,5 @@
 function Container() {
-    this.renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0x1099bb});
-    document.body.appendChild(this.renderer.view);
+    this.renderer = PIXI.autoDetectRenderer(1920, 1080,{backgroundColor : 0x1099bb, view:document.getElementById("game-canvas")});
 
 // create the root of the scene graph
     this.stage = new PIXI.Container();
@@ -9,13 +8,25 @@ function Container() {
 
     this.stage.addChild(container);
 
-    for (var j = 0; j < 5; j++) {
+    this.bunnyAr = [];
+    this.bunny2Ar = [];
 
-        for (var i = 0; i < 5; i++) {
-            var bunny = PIXI.Sprite.fromImage('_assets/basics/penpen.png');
-            bunny.x = 40 * i;
+
+
+    for (var j = 0; j < 12; j++) {
+
+        for (var i = 0; i < 10; i++) {
+            var bunny = PIXI.Sprite.fromImage('_assets/basics/wordmonster.png');
+            bunny.x = bunny.width * i + 400;
             bunny.y = 40 * j;
             container.addChild(bunny);
+            this.bunnyAr.push(bunny);
+
+      //      var bunny2 = PIXI.Sprite.fromImage('_assets/basics/wordmonster.png');
+        //    bunny2.x = 40 * i;
+          //  bunny2.y = 40 * j;
+          // container.addChild(bunny2);
+           //this.bunny2Ar.push(bunny2);
         };
     };
     /*
@@ -36,11 +47,22 @@ function Container() {
 
 Container.prototype.animate = function() {
 
+
+    for(var i = 0; i < this.bunnyAr.length; i++){
+        this.bunnyAr[i].rotation += 0.1;
+    }
+
+   // for(var j = 0; j < this.bunny2Ar.length; j++){
+     //   this.bunny2Ar[j].rotation -= 0.2;
+  //  }
+
     var self = this;
     //requestAnimationFrame(self.animate);
     window.requestAnimationFrame(function () {
         self.animate()
     });
+
+
 
     // render the container
     this.renderer.render(self.stage);
