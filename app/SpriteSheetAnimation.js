@@ -37,9 +37,21 @@ function onAssetsLoaded()
 
     movie.play();
 
+    movie.interactive = true;
+    movie.on('mousedown', onDown);
+    movie.on('touchstart', onDown);
+
     stage.addChild(movie);
 
     animate();
+}
+
+function onDown(){
+    if(movie.y > 1080){
+        movie.y = 0;
+    }else {
+        movie.y += 100;
+    }
 }
 
 function animate() {
