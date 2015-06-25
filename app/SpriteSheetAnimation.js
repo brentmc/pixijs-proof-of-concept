@@ -47,7 +47,7 @@ function onAssetsLoaded()
 }
 
 function onDown(){
-    if(movie.y > 1080){
+    if(movie.y > renderer.height){
         movie.y = 0;
     }else {
         movie.y += 100;
@@ -57,7 +57,7 @@ function onDown(){
 function animate() {
     //movie.rotation += 0.01;
 
-    if(movie.x > 1920){
+    if(movie.x > renderer.width){
         movie.x = 0;
     }else {
         movie.x += 20;
