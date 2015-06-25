@@ -7,7 +7,7 @@ function Basics() {
     this.stage = stage;
 
     // create a texture from an image path
-    var texture = PIXI.Texture.fromImage('resources/BirdPenpen0001.png');
+    var texture = PIXI.Texture.fromImage('_assets/basics/penpen.png');
 
     // create a new Sprite using the texture
     this.bunny = new PIXI.Sprite(texture);
@@ -23,7 +23,6 @@ function Basics() {
     stage.addChild(this.bunny);
 
     var self = this;
-
     window.requestAnimationFrame(function () {
         self.animate()
     });
