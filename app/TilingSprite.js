@@ -20,21 +20,68 @@ stage.addChild(foregroundTilingSprite);
 foregroundTilingSprite.y = renderer.height - foregroundTilingSprite.height;
 
 
+PIXI.loader
+    .add('_assets/basics/fighter.json')
+    .load(onAssetsLoaded);
 
-var count = 0;
+var jet;
 
-animate();
+function onAssetsLoaded()
+{
+    // create an array of textures from an image path
+    var frames = [];
+
+    for (var i = 0; i < 30; i++) {
+        var val = i < 10 ? '0' + i : i;
+
+        // magically works since the spritesheet was loaded with the pixi loader
+        frames.push(PIXI.Texture.fromFrame('rollSequence00' + val + '.png'));
+    }
+
+
+    // create a MovieClip (brings back memories from the days of Flash, right ?)
+    jet = new PIXI.extras.MovieClip(frames);
+
+    /*
+     * A MovieClip inherits all the properties of a PIXI sprite
+     * so you can change its position, its anchor, mask it, etc
+     */
+    jet.position.set(300);
+
+    jet.anchor.set(0.5);
+    jet.animationSpeed = 0.7;
+    jet.rotation = 1.5;
+
+    jet.play();
+
+    jet.interactive = true;
+    jet.on('mousedown', onDown);
+    jet.on('touchstart', onDown);
+
+    stage.addChild(jet);
+
+    animate();
+}
+
+function onDown(){
+    if(jet.y > renderer.height){
+        jet.y = 0;
+    }else {
+        jet.y += 100;
+    }
+}
 
 function animate() {
 
-    count += 0.005;
+    if(jet.x > renderer.width){
+        jet.x = 0;
+    }else {
+        jet.x += 20;
+    }
 
-   // tilingSprite.tileScale.x = 2 + Math.sin(count);
-   // tilingSprite.tileScale.y = 2 + Math.cos(count);
 
     middlegroundTilingSprite.tilePosition.x -= 4;
     foregroundTilingSprite.tilePosition.x -= 10;
-    //tilingSprite.tilePosition.y += 1;
 
     // render the root container
     renderer.render(stage);
